@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.UnknownHostException;
+import java.util.Iterator;
+
 import br.furb.conn.Connection;
 
 public class TrocaDeMensagen {
@@ -150,6 +152,7 @@ public class TrocaDeMensagen {
 		int userId = 0;
 		String passwd = "";
 		String help = "";
+		String strSend = "";
 		boolean bol = true;
 
 		// System.out.println(getUsers(2832, "kxxsm"));
@@ -181,11 +184,16 @@ public class TrocaDeMensagen {
 			bol = true;
 
 			System.out.println("Comandos disponiveis:\n");
-			help = "getUsers UserId:Password\n" + "getMessage\n" + "sendMessage userIdDoDestino:mensagem\n"
-					+ "getPlayers \n" + "getCard \n" + "sendGame mensagem\n" + "exit\n";
+			help = "getUsers\n" 
+					+ "getMessage\n" 
+					+ "sendMessage userIdDoDestino mensagem\n"
+					+ "getPlayers \n" 
+					+ "getCard \n" 
+					+ "sendGame ENTER | STOP | QUIT\n" 
+					+ "exit\n";
 			System.out.println(help);
 			while (bol) {
-				System.out.println(":~$");
+				System.out.print(":~$ ");
 				bufferRead = new BufferedReader(new InputStreamReader(System.in));
 				s = bufferRead.readLine();
 				String[] parts = s.split(" ");
@@ -200,7 +208,10 @@ public class TrocaDeMensagen {
 					break;
 
 				case "sendMessage":
-					sendGame(userId, passwd, parts[1]);
+					for (int i = 2; i < parts.length; i++) {
+						strSend += parts[i] + " ";
+					}
+					sendMessage(userId, passwd, Integer.parseInt(parts[1]), strSend);
 					break;
 
 				case "getPlayers":

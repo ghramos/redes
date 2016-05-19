@@ -4,6 +4,7 @@ public class User {
 
 	private String user;
 	private String pass;
+	private int wins;
 
 	public User(String userid, String passwd) {
 		setUser(userid);
@@ -24,6 +25,14 @@ public class User {
 
 	public void setPass(String passwd) {
 		this.pass = passwd;
+	}
+
+	public int getWins() {
+		return wins;
+	}
+
+	public void setWins(int wins) {
+		this.wins = wins;
 	}
 
 }
