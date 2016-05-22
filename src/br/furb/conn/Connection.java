@@ -23,7 +23,7 @@ public class Connection {
 		setTcpPort(1012);
 	}
 
-	private String getServer() {
+	public String getServer() {
 		return server;
 	}
 
@@ -31,7 +31,7 @@ public class Connection {
 		this.server = server;
 	}
 
-	private int getUdpPort() {
+	public int getUdpPort() {
 		return udpPort;
 	}
 
@@ -39,7 +39,7 @@ public class Connection {
 		this.udpPort = udpPort;
 	}
 
-	private int getTcpPort() {
+	public int getTcpPort() {
 		return tcpPort;
 	}
 

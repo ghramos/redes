@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.Iterator;
 
 import br.furb.conn.Connection;
+import br.furb.conn.KeepAlive;
 
 public class TrocaDeMensagen {
 
@@ -149,26 +150,21 @@ public class TrocaDeMensagen {
 	}
 
 	public static void main(String[] args) throws Exception {
+		// 2832:kxxsm
 		int userId = 0;
 		String passwd = "";
 		String help = "";
 		String strSend = "";
 		boolean bol = true;
 
-		// System.out.println(getUsers(2832, "kxxsm"));
-		// System.out.println(getMessage(2832, "kxxsm"));
-		// sendMessage(2832, "kxxsm", 2222, "Test message");
-		// System.out.println(getPlayers(2832, "kxxsm"));
-		// System.out.println(getCard(2832, "kxxsm"));
-		// sendGame(2832, "kxxsm", "ENTER");
 		try {
 			System.out.println("Digite o id do seu suario e a senha. Ex: 1234:bcd");
 			BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 			String s = bufferRead.readLine();
 
 			while (bol) {
-
-				if (s.isEmpty() || s.split(":").length < 2) {
+				if (s.isEmpty() || s.split(":").length > 2) {
+					// if (s.matches("/[0-9]+:[a-z]+/")) {
 					System.out.println("\nUsuario invalido!\nDigite o id do seu usuario e a senha. Ex: 1234:bcd");
 					bufferRead = new BufferedReader(new InputStreamReader(System.in));
 					s = bufferRead.readLine();
@@ -180,17 +176,13 @@ public class TrocaDeMensagen {
 					bol = false;
 				}
 			}
-
+			KeepAlive kp = new KeepAlive(userId, passwd);
+			kp.start();
 			bol = true;
 
 			System.out.println("Comandos disponiveis:\n");
-			help = "getUsers\n" 
-					+ "getMessage\n" 
-					+ "sendMessage userIdDoDestino mensagem\n"
-					+ "getPlayers \n" 
-					+ "getCard \n" 
-					+ "sendGame ENTER | STOP | QUIT\n" 
-					+ "exit\n";
+			help = "getUsers\n" + "getMessage\n" + "sendMessage userIdDoDestino mensagem\n" + "getPlayers \n"
+					+ "getCard \n" + "sendGame ENTER | STOP | QUIT\n" + "exit\n";
 			System.out.println(help);
 			while (bol) {
 				System.out.print(":~$ ");
